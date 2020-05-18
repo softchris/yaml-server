@@ -7,6 +7,8 @@ Recognition, this project wouldn't be here with out the great `http-server`. I t
 
 A command line tool that create a REST server based on a YAML file.
 
+![](yaml-server.png)
+
 ## Install
 
 Either install it globally with:
