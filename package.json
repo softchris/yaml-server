@@ -1,0 +1,55 @@
+{
+  "name": "yaml-server",
+  "version": "1.0.0",
+  "description": "A command line tool that creates a REST server from a YAML file that you specify",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "jest",
+    "test:watch": "jest:watch",
+    "premake-badge": "$(npm bin)/jest --coverage",
+    "make-badge": "$(npm bin)/coverage-badges"
+  },
+  "jest": {
+    "coverageReporters": ["text", "lcov", "json-summary"]
+  },
+  "keywords": [
+    "YAML",
+    "YML",
+    "server",
+    "fake",
+    "REST",
+    "API",
+    "prototyping",
+    "mock",
+    "mocking",
+    "test",
+    "testing",
+    "rest",
+    "data"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/softchris/yaml-server.git"
+  },
+  "homepage": "https://github.com/softchris/yaml-server",
+  "bugs": {
+    "url": "https://github.com/softchris/yaml-server/issues"
+  },
+  "author": "Chris Noring (https://softchris.github.io)",
+  "contributors": [
+    {
+      "name": "chris noring",
+      "url": "https://softchris.github.io"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "yaml": "^1.9.2"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "supertest": "^4.0.2"
+  }
+}

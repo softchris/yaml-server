@@ -1,0 +1,10 @@
+products:
+  - id: 1
+    name: tomato
+  - id: 2
+    name: lettuce
+orders:
+  - id: 1
+    name: order1
+  - id: 2
+    name: order2
