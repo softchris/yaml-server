@@ -1,6 +1,6 @@
 {
   "name": "yaml-server",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "bin": {
     "yaml-server": "./src/index.js"
   },
@@ -57,6 +57,7 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
+    "coverage-badges": "^1.0.4",
     "jest": "^26.0.1",
     "supertest": "^4.0.2"
   }

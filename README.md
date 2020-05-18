@@ -19,6 +19,26 @@ OR use `NPX`
 npx yaml-server --port 3000 --database ./db.yml
 ```
 
+## Run
+
+Open up a browser and navigate to `http://localhost:<your port>`. Default port is `3000`, if you specified spec. The default page will tell you what routes and operations are available. Here's a typical response for the default page:
+
+```output
+Welcome to YAML Server
+
+Routes available are:
+
+ GET /products
+ GET /products/:id
+ PUT /products
+ DELETE /products/:id
+
+ GET /orders
+ GET /orders/:id
+ PUT /orders
+ DELETE /orders/:id
+```
+
 ## Routes
 
 Routes are first level elements. Consider the following example file:
