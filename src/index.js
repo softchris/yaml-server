@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
-// yargs
+const argv = require("yargs").argv;
+
 const { createServer } = require('./server');
 const { dbPath } = require('./config')('db.yml');
 
-createServer(8000, dbPath);
+const port = argv.port || 3000;
+const database = argv.database || dbPath
+
+createServer(port, database);
