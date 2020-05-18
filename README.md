@@ -43,9 +43,12 @@ Routes available are:
 
 ## Routes
 
+Routes are created from a YAML file. The default value is  `db.yml`. You can name it whatever you want though. 
+
 Routes are first level elements. Consider the following example file:
 
 ```yml
+# db.yml
 products:
   - id: 1
     name: tomato
