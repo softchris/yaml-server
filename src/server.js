@@ -3,6 +3,7 @@ const YAML = require("yaml");
 const fs = require("fs");
 var bodyParser = require("body-parser");
 const app = express();
+const chalk = require('chalk');
 let httpServer;
 
 function createServer(portNumber, dbPath) {
@@ -82,20 +83,17 @@ ${routesString}
     });
   });
 
-  httpServer = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+  httpServer = app.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`)
+    console.log(chalk.greenBright(routesString));
+  });
 }
 
 function getHttpServer() {
   return httpServer;
 }
 // TODO
-// - add proper error codes for GET :id, PUT, DELETE
 // - handle if a POST or PUT is done with an object not matching what's already there, can we use Joi for that?
-// - add tests
-// - commander or yargs
-// - take in port and location of db file as params
-// - finish implementing the other VERBS
-// - publish
 
 module.exports = {
   createServer,
