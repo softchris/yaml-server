@@ -88,4 +88,12 @@ describe('server', () => {
     done();
   })
 
+  test('should respect existing schema on POST', async() => {
+    let res = await request
+      .post('/products')
+      .send({ title: 'should not work' })
+    
+    expect(res.status).toBe(400)
+  })
+
 })

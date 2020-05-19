@@ -36,7 +36,19 @@ ${routesString}
       else { res.json(foundItem); }
     });
     app.post(`/${route}`, (req, res) => {
-      const posted = req.body;
+      const posted = { ...req.body, id: 0 };
+
+      if (json[route].length > 0) {
+        const [firstItem]  = json[route];
+        const props = [ ...Object.keys(firstItem)].sort();
+        const postedProps = Object.keys(posted).sort();
+
+        if (JSON.stringify(props) !== JSON.stringify(postedProps)) {
+          res.statusCode = 400;
+          res.send('');
+        }
+      }
+
       const insertObject = { ...posted, id: json[route].length + 1 };
 
       json[route].push(insertObject);
