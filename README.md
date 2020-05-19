@@ -3,9 +3,18 @@
 [![npm downloads](https://img.shields.io/npm/dm/yaml-server?color=blue&label=npm%20downloads&style=flat-square)](https://www.npmjs.com/package/yaml-server)
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/MIT)
 
-Recognition, this project wouldn't be here with out the great `http-server`. I thought to myself that JSON was a little verbose. So I created `yaml-server` so you can have a Mock REST API based on a YAML file instead.
+## Table of Contents
 
-A command line tool that create a REST server based on a YAML file.
+- [About](#about)
+- [Install](#install)
+- [Run](#run)
+- [Routes](#routes)
+
+## About
+
+Recognition, this project wouldn't be here with out the great `json-server`. I thought to myself that JSON was a little verbose. So I created `yaml-server` so you can have a Mock REST API based on a YAML file instead.
+
+`yaml-server` is a command line tool that create a REST server based on a YAML file.
 
 ![](yaml-server.png)
 
