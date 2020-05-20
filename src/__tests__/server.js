@@ -141,4 +141,13 @@ describe('server', () => {
     expect(res.status).toBe(200);
     expect(res.body).toEqual(kitten);
   })
+
+  test("should NOT create a new resource /<resource>/new/ call when resource already exist", async() => {
+    let res = await request
+      .post("/kittens/new")
+      .send({ title: "paw paw" });
+
+    expect(res.status).toBe(400)
+    expect(res.text).toBe(`/kittens already exist`);
+  });
 })
