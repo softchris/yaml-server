@@ -44,7 +44,31 @@ npx yaml-server --port 3000 --database ./db.yml
 
 ## Run
 
-Open up a browser and navigate to `http://localhost:<your port>`. Default port is `3000`, if you specified port use that as port instead. The default page will tell you what routes and operations are available. Here's a typical response for the default page:
+1. Create a `db.yml`.
+1. Give `db.yml` an example content, for example:
+
+   ```yaml
+   products:
+     - id: 1
+       name: tomato
+     - id: 2
+       name: lettuce
+   orders:
+    - id: 1
+      name: order1
+    - id: 2
+      name: order2
+   ```
+
+1. There are two ways to start:
+   1. **Quick start**, run `npx yaml-server`, this will start a server on `http://localhost:3000` and base it off a `db.yml` at the project root that you created.
+   1. **With parameters**, You can also configure like so `npx yaml-server --port 8000 --database ./db/mydb.yml` (If you place db file under `./db/mydb.yml`)
+
+### See your routes
+
+Open up a browser and navigate to `http://localhost:<your port>`. Default port is `3000`, if you specified port use that as port instead.
+
+The default page at route `http://localhost:<port>` will tell you what routes and operations are available. Here's a typical response for the default page:
 
 ```output
 Welcome to YAML Server
