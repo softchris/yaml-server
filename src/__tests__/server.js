@@ -27,7 +27,6 @@ describe('server', () => {
     }]
 
     const res = await request.get('/products')
-    // console.log('res',res);
     expect(res.status).toBe(200);
     expect(res.body).toEqual(products);
     done();
@@ -127,5 +126,19 @@ describe('server', () => {
       .send({ title: 'should not work' })
     
     expect(res.status).toBe(400)
+  })
+
+  test('should create a new resource based on a /<resource>/new/ call', async() => {
+    const kitten = { id: 1, title: 'paw paw' };
+    let res = await request
+      .post('/kittens/new')
+      .send({ title: 'paw paw' });
+
+    expect(res.status).toBe(201);  
+    expect(res.body).toEqual(kitten);
+
+    res = await request.get('/kittens');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(kitten);
   })
 })

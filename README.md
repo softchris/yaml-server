@@ -17,7 +17,7 @@ Recognition, this project wouldn't be here with out the great `json-server`. I t
 
 `yaml-server` is a command line tool that create a REST server based on a YAML file.
 
-![](yaml-server.png)
+![Application running](yaml-server.png)
 
 ## Features
 
@@ -27,6 +27,14 @@ Recognition, this project wouldn't be here with out the great `json-server`. I t
     ```bash
     /products?page=1&pageSize=10
     ```
+
+- Create new resource, make a POST call with the following format `/<new resource>/new`, example:
+
+    ```bash
+    /kittens/new
+    ```
+
+    Ensure you have a payload as well, looking like for example `{ title: 'paw paw' }`
 
 ## Install
 
