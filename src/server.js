@@ -29,7 +29,20 @@ ${routesString}
   );
 
   routes.forEach((route) => {
-    app.get(`/${route}`, (req, res) => res.json(json[route]));
+    app.get(`/${route}`, (req, res) => {
+      const page = req.query.page;
+      const pageSize = req.query.pageSize;
+ 
+      if (/\d+/.test(page) && /\d+/.test(pageSize)) {
+        const pageNo = +page;
+        const pageSizeNo = +pageSize;
+        const start = pageSizeNo * (+pageNo - 1);
+        const end = start + pageSizeNo;
+        res.json(json[route].slice(start, end));
+      }
+
+      res.json(json[route])
+    });
     app.get(`/${route}/:id`, (req, res) => {
       const foundItem = json[route].find((item) => item.id == req.params.id);
       if (!foundItem) { res.statusCode = 404; res.json({}) }
@@ -37,7 +50,7 @@ ${routesString}
     });
     app.post(`/${route}`, (req, res) => {
       const posted = { ...req.body, id: 0 };
-
+      
       if (json[route].length > 0) {
         const [firstItem]  = json[route];
         const props = [ ...Object.keys(firstItem)].sort();

@@ -6,17 +6,27 @@
 ## Table of Contents
 
 - [About](#about)
+- [Features](#features)
 - [Install](#install)
 - [Run](#run)
 - [Routes](#routes)
 
-## About
+## About
 
 Recognition, this project wouldn't be here with out the great `json-server`. I thought to myself that JSON was a little verbose. So I created `yaml-server` so you can have a Mock REST API based on a YAML file instead.
 
 `yaml-server` is a command line tool that create a REST server based on a YAML file.
 
 ![](yaml-server.png)
+
+## Features
+
+- Do HTTP requests towards a Mock API using GET, PUT, POST and DELETE created off of a `db.yml` file.
+- Filter your GET calls with query parameters `page` and `pageSize`, example:
+
+    ```bash
+    /products?page=1&pageSize=10
+    ```
 
 ## Install
 
