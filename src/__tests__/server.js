@@ -33,6 +33,31 @@ describe('server', () => {
     done();
   })
 
+  test('should filter by query parameters', async() => {
+    const firstItem = { id: 1, name: 'tomato' };
+    const secondItem = { id: 2, name: 'lettuce' };
+
+    let res = await request.get('/products?page=1&pageSize=1');
+    let [ item ] = res.body;
+    expect(res.body.length).toBe(1);
+    expect(item).toEqual(firstItem);
+
+    res = await request.get('/products/?page=2&pageSize=1');
+    item = res.body[0];
+    expect(res.body.length).toBe(1);
+    expect(item).toEqual(secondItem);
+  })
+
+  test('should NOT respect filter when query param missing', async() => {
+    const res = await request.get('/products?page=1');
+    expect(res.body.length).toBe(2);
+  })
+
+  test("should NOT respect filter when query param has wrong value type", async () => {
+    const res = await request.get("/products?page=1&pageSize=abc");
+    expect(res.body.length).toBe(2);
+  });
+
   test('should return intro text on default route', async() => {
     const res = await request.get('/');
     expect(res.text).toMatch(/Welcome to YAML Server/)

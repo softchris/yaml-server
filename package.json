@@ -1,6 +1,6 @@
 {
   "name": "yaml-server",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "bin": {
     "yaml-server": "./src/index.js"
   },
@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node ./src/index.js",
     "test": "jest",
-    "test:watch": "jest:watch",
+    "test:watch": "jest --watchAll",
     "premake-badge": "$(npm bin)/jest --coverage",
     "make-badge": "$(npm bin)/coverage-badges",
     "toc": "npx markdown-toc README.md"
