@@ -76,6 +76,7 @@ ${routesString}
         );
         res.json({ ...foundItem, ...posted });
       } else {
+        res.statusCode = 404;
         res.send("Item not found with ID" + posted.id);
       }
     });

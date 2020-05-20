@@ -33,6 +33,11 @@ describe('server', () => {
     done();
   })
 
+  test('should return intro text on default route', async() => {
+    const res = await request.get('/');
+    expect(res.text).toMatch(/Welcome to YAML Server/)
+  })
+
   test('should return a product', async(done) => {
     const product = { id: 1, name: 'tomato' };
     const res = await request.get('/products/1')
@@ -40,12 +45,6 @@ describe('server', () => {
     expect(res.body).toEqual(product);
     done();
   })
-
-  test("should return 404 resource not found", async (done) => {
-    const res = await request.get("/products/3");
-    expect(res.status).toBe(404);
-    done();
-  });
 
   test("should return 404 resource not found", async (done) => {
     const res = await request.get("/products/3");
@@ -77,6 +76,15 @@ describe('server', () => {
     done();
   })
 
+  test('should return 404 and error message when trying to update non existing item', async() => {
+    const nonExistingItem = { id: 99, name: 'unknown' };
+    let res = await request
+      .put('/products')
+      .send(nonExistingItem)
+    expect(res.status).toBe(404);
+    expect(res.text).toBe("Item not found with ID" + nonExistingItem.id)
+  })
+
   test('should delete product', async(done) => {
     const deletedItem = { id: 3, name: "gurkin" };
     let res = await request.delete('/products/3');
@@ -95,5 +103,4 @@ describe('server', () => {
     
     expect(res.status).toBe(400)
   })
-
 })
