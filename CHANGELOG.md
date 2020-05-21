@@ -23,3 +23,7 @@
 ## 1.4.4 - 2020-05-21
 
 - Adding ESLint
+
+## 1.5.0 - 2020-05-21
+
+- Adding CI with Azure Devops
