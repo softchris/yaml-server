@@ -2,9 +2,12 @@ const express = require("express");
 const YAML = require("yaml");
 const fs = require("fs");
 var bodyParser = require("body-parser");
+const cors = require('cors');
 const app = express();
 const chalk = require('chalk');
 let httpServer;
+
+app.use(cors());
 
 function createServer(portNumber, dbPath) {
   
