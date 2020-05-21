@@ -2,9 +2,9 @@ const express = require("express");
 const YAML = require("yaml");
 const fs = require("fs");
 var bodyParser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
 const app = express();
-const chalk = require('chalk');
+const chalk = require("chalk");
 let httpServer;
 
 app.use(cors());
@@ -27,12 +27,12 @@ function createServer(portNumber, dbPath) {
   const routeDefault = (req, res) => res.send(`Welcome to YAML Server \n
 Routes available are: \n
 ${routesString}
-`)
+`);
 
   function setupRoutesForResource(route) {
     app.get(`/${route}`, (req, res) => routeGet(req, res, route));
     app.get(`/${route}/:id`, (req, res) => routeGetWithParam(req, res, route));
-    app.post(`/:newRoute/new`, (req, res) => routeNewResource(req, res, route));
+    app.post("/:newRoute/new", (req, res) => routeNewResource(req, res, route));
     app.post(`/${route}`, (req, res) => routePost(req, res, route));
     app.put(`/${route}`, (req, res) => routePut(req, res, route));
     app.delete(`/${route}/:id`, (req, res) => routeDelete(req, res, route));
@@ -63,12 +63,12 @@ ${routesString}
     }
   }
 
-  function routeNewResource(req, res, route) {
+  function routeNewResource(req, res) {
     const { newRoute } = req.params;
 
     if (!json[newRoute]) {
       json[newRoute] = { ...req.body, id: 1 };
-      setupRoutesForResource(newRoute)
+      setupRoutesForResource(newRoute);
       fs.writeFileSync(dbPath, YAML.stringify(json));
       res.statusCode = 201;
       res.json({ ...req.body, id: 1 });
@@ -134,12 +134,12 @@ ${routesString}
       return res.json(deletedItem);
     }
 
-  app.get("/", routeDefault)
+  app.get("/", routeDefault);
 
   routes.forEach(setupRoutesForResource);
 
   httpServer = app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`)
+    console.log(`Example app listening on port ${port}!`);
     console.log(chalk.greenBright(routesString));
   });
 }
