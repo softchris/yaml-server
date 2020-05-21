@@ -1,3 +1,4 @@
+[![Build Status](https://dev.azure.com/devrel/chris-testing/_apis/build/status/softchris.yaml-server?branchName=master)](https://dev.azure.com/devrel/chris-testing/_build/latest?definitionId=23&branchName=master)
 ![Coverage](./badges/coverage.svg)
 [![npm version](https://badge.fury.io/js/yaml-server.svg)](https://www.npmjs.com/package/yaml-server)
 [![npm downloads](https://img.shields.io/npm/dm/yaml-server?color=blue&label=npm%20downloads&style=flat-square)](https://www.npmjs.com/package/yaml-server)
