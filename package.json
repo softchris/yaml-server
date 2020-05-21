@@ -1,6 +1,7 @@
 {
   "name": "yaml-server",
-  "version": "1.3.4",
+  "version": "1.4.4",
+  "engines" : { "node" : ">=8.3.0" },
   "bin": {
     "yaml-server": "./src/index.js"
   },
@@ -12,7 +13,8 @@
     "test:watch": "jest --watchAll",
     "premake-badge": "$(npm bin)/jest --coverage",
     "make-badge": "$(npm bin)/coverage-badges",
-    "toc": "npx markdown-toc README.md"
+    "toc": "npx markdown-toc README.md",
+    "lint": "npx eslint ./src/**"
   },
   "jest": {
     "coverageReporters": [
@@ -62,6 +64,9 @@
   },
   "devDependencies": {
     "coverage-badges": "^1.0.4",
+    "eslint": "^7.0.0",
+    "eslint-plugin-jest": "^23.13.1",
+    "eslint-plugin-node": "^11.1.0",
     "jest": "^26.0.1",
     "supertest": "^4.0.2"
   }
