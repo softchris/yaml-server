@@ -31,3 +31,11 @@
 ## 1.6.0 - 2020-05-21
 
 - Added ability to sort.
+
+## 1.7.0 - 2020-05-21
+
+- Static file hosting, use `--static` to specify what directory, otherwise root is used.
+
+## 1.8.0 - 2020-05-21
+
+- Auto start browser at `http://localhost:<selected port>/info`.
