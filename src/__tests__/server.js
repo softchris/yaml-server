@@ -2,7 +2,7 @@ const { createServer, server, getHttpServer } = require("../server");
 const path = require("path");
 const fs = require("fs");
 const supertest = require("supertest");
-createServer(3000, path.join(__dirname, "db.yml"));
+createServer(3000, path.join(__dirname ,"db.yml"), ".", false);
 
 const request = supertest(server);
 

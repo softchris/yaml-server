@@ -67,9 +67,15 @@ Recognition, this project wouldn't be here with out the great `json-server`. I t
     }]
     ```
 
+- **browser autostart**, the Browser auto starts at `http://locallhost:<selected port>/info`. Should you not wish to have that behavior, you can shut it off like so:
+
+   ```bash
+   npx yaml-server --autoStart=off
+   ```
+
 - **Static file server**
 
-By default a static file server is starting up to host your files at root directory. You can change that by specifying `--static`. Here's how you would do that:
+  By default a static file server is starting up to host your files at root directory. You can change that by specifying `--static`. Here's how you would do that:
 
    ```bash
    npx yaml-server --static=public

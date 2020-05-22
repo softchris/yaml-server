@@ -6,8 +6,9 @@ const { dbPath } = require("./config")("db.yml");
 
 const port = argv.port || 3000;
 const database = argv.database || dbPath;
+const autoStart = argv.autoStart === 'off' ? false : true;
 
-createServer(port, database, argv.static);
+createServer(port, database, argv.static, autoStart);
 
 
 

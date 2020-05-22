@@ -1,17 +1,17 @@
 const YAML = require("yaml");
 const fs = require("fs");
-const path = require("path");
 var bodyParser = require("body-parser");
 const cors = require("cors");
 const chalk = require("chalk");
 const express = require("express");
 const app = express();
+const opn = require('opn');
 
 let httpServer;
 
 app.use(cors());
 
-function createServer(portNumber, dbPath, staticDirectory) {  
+function createServer(portNumber, dbPath, staticDirectory, autoStart = true) {  
   const port = portNumber || 3000;
 
   app.use(bodyParser.json());
@@ -59,18 +59,18 @@ ${routesString}
 
     const sortAscending = (a, b) => {
       console.log('sort ascending')
-      if (a[sortKey] > b[sortKey])
+      if (a[sortKey] > b[sortKey]) {
         return 1;
-      else if (a[sortKey] < b[sortKey]) {
+      } else if (a[sortKey] < b[sortKey]) {
         return -1;
       }
       return 0;
     }
 
     const sortDescending = (a, b) => {
-      if (a[sortKey] > b[sortKey])
+      if (a[sortKey] > b[sortKey]) {
         return -1;
-      else if (a[sortKey] < b[sortKey]) {
+      } else if (a[sortKey] < b[sortKey]) {
         return 1;
       }
       return 0;
@@ -189,9 +189,12 @@ ${routesString}
 
   routes.forEach(setupRoutesForResource);
 
-  httpServer = app.listen(port, () => {
+  httpServer = app.listen(port, async() => {
     console.log(`Example app listening on port ${port}!`);
     console.log(chalk.greenBright(routesString));
+    if (autoStart) {
+      const ref = await opn(`http://localhost:${port}/info`);
+    }
   });
 }
 
