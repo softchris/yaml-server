@@ -41,6 +41,44 @@ ${routesString}
   function routeGet(req, res, route) {
     const page = req.query.page;
     const pageSize = req.query.pageSize;
+    const sortOrder = req.query.sortOrder;
+    const sortKey = req.query.sortKey;
+    const sortOrders = [ 'ASC', 'DESC' ];
+
+    const sortAscending = (a, b) => {
+      console.log('sort ascending')
+      if (a[sortKey] > b[sortKey])
+        return 1;
+      else if (a[sortKey] < b[sortKey]) {
+        return -1;
+      }
+      return 0;
+    }
+
+    const sortDescending = (a, b) => {
+      if (a[sortKey] > b[sortKey])
+        return -1;
+      else if (a[sortKey] < b[sortKey]) {
+        return 1;
+      }
+      return 0;
+    }
+
+    if (sortKey && json[route][0][sortKey] === undefined) {
+      res.statusCode = 400;
+      res.send(`${sortKey} is not a valid sort key`);
+    }
+
+    if (sortOrder && sortOrders.includes(sortOrder)) {
+      const sortMethod = sortOrder === 'ASC'? sortAscending : sortDescending;
+      const copyArr = [ ...json[route]];
+      copyArr.sort(sortMethod)
+      res.json(copyArr)
+    } else if (!sortOrder && sortKey) {
+      const copyArr = [...json[route]];
+      copyArr.sort(sortAscending)
+      res.json(copyArr)
+    }
 
     if (/\d+/.test(page) && /\d+/.test(pageSize)) {
       const pageNo = +page;

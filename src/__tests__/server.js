@@ -32,6 +32,43 @@ describe("server", () => {
     done();
   });
 
+  test("should sort the data based on sortOrder and sortKey", async () => {
+    const expected = [{ id: 2, name: 'lettuce' }, { id: 1, name: 'tomato' }];
+
+    const res = await request.get('/products?sortOrder=ASC&sortKey=name')
+    expect(expected).toEqual(res.body);
+  })
+
+  test("should sort the data based on sortOrder and sortKey - DESCENDING", async () => {
+    const expected = [{ id: 1, name: 'tomato' }, { id: 2, name: 'lettuce' }];
+
+    const res = await request.get('/products?sortOrder=DESC&sortKey=name')
+    expect(expected).toEqual(res.body);
+  })
+
+  test("should sort with ascending when sortOrder is missing but sortKey is present", async () => {
+    const expected = [{ id: 2, name: 'lettuce' }, { id: 1, name: 'tomato' }];
+
+    const res = await request.get('/products?sortKey=name')
+    expect(expected).toEqual(res.body);
+  })
+
+  test("should sort not respect sortOrder when sortOrder value is NOT ASC or DESC", async () => {
+    const expected = [{ id: 1, name: 'tomato' }, { id: 2, name: 'lettuce' }];
+
+    const res = await request.get('/products?sortOrder=abc&sortKey=name')
+    expect(expected).toEqual(res.body);
+  })
+
+  test("should respond with 400 when sortKey is not a valid column", async () => {
+    const expected = [{ id: 1, name: 'tomato' }, { id: 2, name: 'lettuce' }];
+
+    const res = await request.get('/products?sortOrder=abc&sortKey=notValidKey')
+
+    expect(res.status).toBe(400)
+    expect(res.text).toBe('notValidKey is not a valid sort key')
+  })
+
   test("should filter by query parameters", async() => {
     const firstItem = { id: 1, name: "tomato" };
     const secondItem = { id: 2, name: "lettuce" };
