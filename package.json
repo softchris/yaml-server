@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/index.js",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watchAll",
     "premake-badge": "$(npm bin)/jest --coverage",
     "make-badge": "$(npm bin)/coverage-badges",
@@ -20,7 +20,8 @@
     "coverageReporters": [
       "text",
       "lcov",
-      "json-summary"
+      "json-summary",
+      "cobertura"
     ]
   },
   "keywords": [
