@@ -23,7 +23,7 @@ Recognition, this project wouldn't be here with out the great `json-server`. I t
 ## Features
 
 - **RESTful API** Do HTTP requests towards a Mock API using GET, PUT, POST and DELETE created off of a `db.yml` file.
-- Filter your GET calls with query parameters `page` and `pageSize`, example:
+- **Filter** your GET calls with query parameters `page` and `pageSize`, example:
 
     ```bash
     /products?page=1&pageSize=10
@@ -67,6 +67,16 @@ Recognition, this project wouldn't be here with out the great `json-server`. I t
     }]
     ```
 
+- **Static file server**
+
+By default a static file server is starting up to host your files at root directory. You can change that by specifying `--static`. Here's how you would do that:
+
+   ```bash
+   npx yaml-server --static=public
+   ```
+
+   The above would start a static file server from the sub folder `public`.
+
 ## Install
 
 Either install it globally with:
@@ -105,9 +115,9 @@ npx yaml-server --port 3000 --database ./db.yml
 
 ### See your routes
 
-Open up a browser and navigate to `http://localhost:<your port>`. Default port is `3000`, if you specified port use that as port instead.
+Open up a browser and navigate to `http://localhost:<your port>/info`. Default port is `3000`, if you specified port use that as port instead.
 
-The default page at route `http://localhost:<port>` will tell you what routes and operations are available. Here's a typical response for the default page:
+The page at route `http://localhost:<port>/info` will tell you what routes and operations are available. Here's a typical response for the default page:
 
 ```output
 Welcome to YAML Server

@@ -1,25 +1,37 @@
-const express = require("express");
 const YAML = require("yaml");
 const fs = require("fs");
+const path = require("path");
 var bodyParser = require("body-parser");
 const cors = require("cors");
-const app = express();
 const chalk = require("chalk");
+const express = require("express");
+const app = express();
+
 let httpServer;
 
 app.use(cors());
 
-function createServer(portNumber, dbPath) {
-  
+function createServer(portNumber, dbPath, staticDirectory) {  
   const port = portNumber || 3000;
 
   app.use(bodyParser.json());
+  
+  let routes = [];
+  let json;
+  if (!fs.existsSync(dbPath)) {
+    console.log(chalk.redBright(`DB does not exist at path "${dbPath}"`));
+  } else {
+    // read yml file
+    const content = fs.readFileSync(dbPath, { encoding: "utf8" });
+    const doc = YAML.parseDocument(content);
+    json = doc.toJSON();
+    routes = Object.keys(json);
+  }
+  
+  let staticPath = staticDirectory || ".";
+  app.use(express.static(staticPath));
+  console.log(chalk.blueBright(`Static files served from ${staticPath}/`));
 
-  // read yml file
-  const content = fs.readFileSync(dbPath, { encoding: "utf8" });
-  const doc = YAML.parseDocument(content);
-  const json = doc.toJSON();
-  const routes = Object.keys(json);
   const routesString = routes.reduce((acc, curr) => {
     return `${acc} GET /${curr} \n GET /${curr}/:id \n PUT /${curr} \n DELETE /${curr}/:id \n\n`;
   }, "");
@@ -87,7 +99,7 @@ ${routesString}
       const end = start + pageSizeNo;
       res.json(json[route].slice(start, end));
     }
-
+    
     res.json(json[route]);
   }
 
@@ -172,7 +184,8 @@ ${routesString}
       return res.json(deletedItem);
     }
 
-  app.get("/", routeDefault);
+  app.get("/info", routeDefault);
+
 
   routes.forEach(setupRoutesForResource);
 

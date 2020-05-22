@@ -95,7 +95,7 @@ describe("server", () => {
   });
 
   test("should return intro text on default route", async() => {
-    const res = await request.get("/");
+    const res = await request.get("/info");
     expect(res.text).toMatch(/Welcome to YAML Server/);
   });
 
