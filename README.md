@@ -22,20 +22,50 @@ Recognition, this project wouldn't be here with out the great `json-server`. I t
 
 ## Features
 
-- Do HTTP requests towards a Mock API using GET, PUT, POST and DELETE created off of a `db.yml` file.
+- **RESTful API** Do HTTP requests towards a Mock API using GET, PUT, POST and DELETE created off of a `db.yml` file.
 - Filter your GET calls with query parameters `page` and `pageSize`, example:
 
     ```bash
     /products?page=1&pageSize=10
     ```
 
-- Create new resource, make a POST call with the following format `/<new resource>/new`, example:
+- **Create new resource**, make a POST call with the following format `/<new resource>/new`, example:
 
     ```bash
     /kittens/new
     ```
 
     Ensure you have a payload as well, looking like for example `{ title: 'paw paw' }`
+
+- **Sorting, by order and key**, you can sort a resource response using query parameters `sortOrder` and `sortKey`. Assume we have the resource `/kittens` where one kitten object looks like so `{ id: 1, name: 'paws' }` and the entire resource looks like so:
+
+    ```javascript
+    [{
+      id: 1,
+      name: 'paws'
+    }, {
+      id: 2,
+      name: 'alpha paw'
+    }]
+    ```
+
+    Use sorting by appending `sortOrder` and `sortKey` like below:
+
+    ```bash
+    /kittens?sortOrder=ASC&sortKey=name
+    ```
+
+    This would give the response:
+
+    ```javascript
+    [{
+      id: 2,
+      name: 'alpha paw'
+    }, {
+      id: 1,
+      name: 'paws'
+    }]
+    ```
 
 ## Install
 
@@ -97,7 +127,7 @@ Routes available are:
 
 ## Routes
 
-Routes are created from a YAML file. The default value is  `db.yml`. You can name it whatever you want though. 
+Routes are created from a YAML file. The default value is  `db.yml`. You can name it whatever you want though.
 
 Routes are first level elements. Consider the following example file:
 

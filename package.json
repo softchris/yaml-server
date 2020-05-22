@@ -1,7 +1,9 @@
 {
   "name": "yaml-server",
-  "version": "1.5.0",
-  "engines" : { "node" : ">=8.3.0" },
+  "version": "1.6.0",
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "bin": {
     "yaml-server": "./src/index.js"
   },
@@ -59,7 +61,6 @@
     "chalk": "^4.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "markdown-toc": "^1.2.0",
     "yaml": "^1.9.2",
     "yargs": "^15.3.1"
   },
@@ -69,6 +70,7 @@
     "eslint-plugin-jest": "^23.13.1",
     "eslint-plugin-node": "^11.1.0",
     "jest": "^26.0.1",
+    "markdown-toc": "^1.2.0",
     "supertest": "^4.0.2"
   }
 }

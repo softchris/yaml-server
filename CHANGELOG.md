@@ -27,3 +27,7 @@
 ## 1.5.0 - 2020-05-21
 
 - Adding CI with Azure Devops
+
+## 1.6.0 - 2020-05-21
+
+- Added ability to sort.
