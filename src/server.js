@@ -4,14 +4,17 @@ var bodyParser = require("body-parser");
 const cors = require("cors");
 const chalk = require("chalk");
 const express = require("express");
-const app = express();
+let app;
 const opn = require('opn');
 
 let httpServer;
 
-app.use(cors());
+
 
 function createServer(portNumber, dbPath, staticDirectory, autoStart = true) {  
+  let app = express();
+  app.use(cors());
+  
   const port = portNumber || 3000;
 
   app.use(bodyParser.json());
@@ -99,7 +102,6 @@ ${routesString}
       const end = start + pageSizeNo;
       res.json(json[route].slice(start, end));
     }
-    
     res.json(json[route]);
   }
 
@@ -196,6 +198,7 @@ ${routesString}
       const ref = await opn(`http://localhost:${port}/info`);
     }
   });
+  return app;
 }
 
 function getHttpServer() {
@@ -204,6 +207,5 @@ function getHttpServer() {
 
 module.exports = {
   createServer,
-  server: app,
   getHttpServer
 };

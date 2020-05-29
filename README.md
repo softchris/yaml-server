@@ -83,6 +83,14 @@ Recognition, this project wouldn't be here with out the great `json-server`. I t
 
    The above would start a static file server from the sub folder `public`.
 
+- **Hot reload**
+
+  The server will restart if you make changes to your database file. No need for closing and starting the server after a database change. Should you not wish that behavior, you can shut it off with:
+
+  ```bash
+  npx yaml-server --hotReload=off
+  ```
+
 ## Install
 
 Either install it globally with:

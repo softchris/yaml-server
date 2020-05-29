@@ -39,3 +39,7 @@
 ## 1.8.0 - 2020-05-21
 
 - Auto start browser at `http://localhost:<selected port>/info`.
+
+## 1.9.0 - 2020-05-29
+
+- Hot reload, you can now edit the db file and the server will restart by itself.
