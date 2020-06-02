@@ -4,14 +4,12 @@ var bodyParser = require("body-parser");
 const cors = require("cors");
 const chalk = require("chalk");
 const express = require("express");
-let app;
+const { toJson, transform } = require('./fileHelper');
 const opn = require('opn');
 
 let httpServer;
 
-
-
-function createServer(portNumber, dbPath, staticDirectory, autoStart = true) {  
+function createServer(portNumber, dbPath, staticDirectory, autoStart = true, dialect = 'yaml') {  
   let app = express();
   app.use(cors());
   
@@ -24,10 +22,8 @@ function createServer(portNumber, dbPath, staticDirectory, autoStart = true) {
   if (!fs.existsSync(dbPath)) {
     console.log(chalk.redBright(`DB does not exist at path "${dbPath}"`));
   } else {
-    // read yml file
     const content = fs.readFileSync(dbPath, { encoding: "utf8" });
-    const doc = YAML.parseDocument(content);
-    json = doc.toJSON();
+    json = toJson(content, dialect)
     routes = Object.keys(json);
   }
   
@@ -121,7 +117,7 @@ ${routesString}
     if (!json[newRoute]) {
       json[newRoute] = { ...req.body, id: 1 };
       setupRoutesForResource(newRoute);
-      fs.writeFileSync(dbPath, YAML.stringify(json));
+      fs.writeFileSync(dbPath, transform(json, dialect));
       res.statusCode = 201;
       res.json({ ...req.body, id: 1 });
     } else {
@@ -147,7 +143,8 @@ ${routesString}
     const insertObject = { ...posted, id: json[route].length + 1 };
 
     json[route].push(insertObject);
-    fs.writeFileSync(dbPath, YAML.stringify(json));
+
+    fs.writeFileSync(dbPath, transform(json, dialect));
     res.statusCode = 201;
     res.json(insertObject);
   }
@@ -163,7 +160,7 @@ ${routesString}
       return item;
     });
     if (foundItem) {
-      fs.writeFileSync(dbPath, YAML.stringify(json));
+      fs.writeFileSync(dbPath, transform(json, dialect));
       res.json({ ...foundItem, ...posted });
     } else {
       res.statusCode = 404;
@@ -179,10 +176,7 @@ ${routesString}
         }
         return item.id !== +req.params.id;
       });
-      fs.writeFileSync(
-        dbPath,
-        YAML.stringify(json)
-      );
+      fs.writeFileSync(dbPath, transform(json, dialect));
       return res.json(deletedItem);
     }
 

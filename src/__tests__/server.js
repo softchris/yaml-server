@@ -2,15 +2,55 @@ const { createServer, getHttpServer } = require("../server");
 const path = require("path");
 const fs = require("fs");
 const supertest = require("supertest");
-const server = createServer(3000, path.join(__dirname ,"db.yml"), ".", false);
+const jsonOption = {
+  dialect: 'json',
+  dbFilename: 'db.json'
+};
+
+const ymlOption = {
+  dialect: 'yaml',
+  dbFilename: 'db.yml'
+};
+
+function createOption(option) {
+  if (option === 'yaml') {
+    return ymlOption
+  } else if (option === 'json') {
+    return jsonOption;
+  } else {
+    throw new Error(`Unknown option ${option}`)
+  }
+}
+
+const selectedOption = createOption('json');
+
+const server = createServer(
+  3000, 
+  path.join(__dirname, selectedOption.dbFilename), 
+  ".", 
+  false, 
+  selectedOption.dialect
+);
 
 const request = supertest(server);
+
+function restore(dialect) {
+  if (dialect === 'yaml') {
+    const original = fs.readFileSync(path.join(__dirname, "original-db.yml"));
+    fs.writeFileSync(path.join(__dirname, "db.yml"), original);
+  } else if (dialect === 'json') {
+    const original = fs.readFileSync(path.join(__dirname, "original-db.json"));
+    fs.writeFileSync(path.join(__dirname, "db.json"), original);
+  }
+}
 
 describe("server", () => {
   afterAll(async(done) => {
     // restore yml
-    const original = fs.readFileSync(path.join(__dirname, "original-db.yml"));
-    fs.writeFileSync(path.join(__dirname, "db.yml"), original);
+    // TODO, ensure we have an original based on dialect
+    // const original = fs.readFileSync(path.join(__dirname, "original-db.yml"));
+    // fs.writeFileSync(path.join(__dirname, "db.yml"), original);
+    restore(selectedOption.dialect);
     getHttpServer().close(() => {
       console.log("server closed!");
       done();

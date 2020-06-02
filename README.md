@@ -29,6 +29,20 @@ Recognition, this project wouldn't be here with out the great `json-server`. I t
     /products?page=1&pageSize=10
     ```
 
+- **JSON support**, yes you can have your database in JSON as well. All you need is to specify the `--dialect` argument like so:
+
+   ```bash
+   npx yaml-server --dialect=json
+   ```
+
+   The above will look after a `db.json` file at the root. You override where it looks for this if you specify `--database` like for example:
+
+   ```bash
+   npx yaml-server --dialect=json --database ./db/db.json
+   ```
+
+   Above you need to ensure the `db.json` is located in sub directory `db` as seen from the root.
+
 - **Create new resource**, make a POST call with the following format `/<new resource>/new`, example:
 
     ```bash
